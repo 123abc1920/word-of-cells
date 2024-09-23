@@ -49,8 +49,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:src="@drawable/mons"
-            android:visibility="gone"
-            app:tint="@color/green" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/fluidmonster"

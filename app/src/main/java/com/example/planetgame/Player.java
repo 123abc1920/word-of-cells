@@ -7,7 +7,7 @@ public class Player extends Entity {
     public Player(Cell cell) {
         this.cell = cell;
 
-        cell.isEntity = true;
+        cell.isPlayer = true;
         cell.isEmpty = true;
         cell.num = 0;
     }

@@ -12,28 +12,31 @@ public class GreenMonster extends Entity {
         Cell cell;
         while (true) {
             cell = MainActivity.adapter.cellList.get(new Random().nextInt(25));
-            if (!cell.isEntity) {
+            if (!cell.isPlayer && !cell.isMonster) {
                 this.cell = cell;
-                this.cell.isEntity = true;
+                this.cell.isMonster = true;
                 return;
             }
         }
     }
 
     public void activity() {
-        boolean canGo = false;
-        for (Cell c : this.availableCells(a)) {
-            if (c != null) {
-                canGo = true;
-                break;
-            }
-        }
-        if (canGo) {
+        if (this.availableCells(a).size() > 0) {
             cell.greenMonster.setVisibility(View.GONE);
-            this.cell.isEntity = false;
+            this.cell.isMonster = false;
             this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
+            for (Cell c : this.availableCells(a)) {
+                if (c.isPlayer) {
+                    this.cell = c;
+                }
+            }
             this.cell.greenMonster.setVisibility(View.VISIBLE);
-            this.cell.isEntity = true;
+            this.cell.isMonster = true;
+            if (this.cell.isPlayer) {
+                MainActivity.game.score.tree += 10;
+                MainActivity.game.score.water += 10;
+                MainActivity.game.score.rock += 10;
+            }
         }
     }
 

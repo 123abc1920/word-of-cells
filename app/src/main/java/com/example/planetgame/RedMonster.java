@@ -1,5 +1,7 @@
 package com.example.planetgame;
 
+import static com.example.planetgame.Game.startDialog;
+
 import android.view.View;
 
 import java.util.Random;
@@ -11,31 +13,29 @@ public class RedMonster extends Entity {
         Cell cell;
         while (true) {
             cell = MainActivity.adapter.cellList.get(new Random().nextInt(25));
-            if (!cell.isEntity) {
+            if (!cell.isPlayer && !cell.isMonster) {
                 this.cell = cell;
-                this.cell.isEntity = true;
+                this.cell.isMonster = true;
                 return;
             }
         }
     }
 
     public void activity() {
-        boolean canGo = false;
-        for (Cell c : this.availableCells(a)) {
-            if (c != null) {
-                canGo = true;
-                break;
-            }
-        }
-        for (Cell c : this.availableCells(a)) {
-            System.out.println(c.id);
-        }
-        if (canGo) {
+        if (this.availableCells(a).size() > 0) {
             cell.redMonster.setVisibility(View.GONE);
-            this.cell.isEntity = false;
+            this.cell.isMonster = false;
             this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
+            for (Cell c : this.availableCells(a)) {
+                if (c.isPlayer) {
+                    this.cell = c;
+                }
+            }
             this.cell.redMonster.setVisibility(View.VISIBLE);
-            this.cell.isEntity = true;
+            this.cell.isMonster = true;
+            if (this.cell.isPlayer) {
+                startDialog(MainActivity.game.manager, "You lose(((");
+            }
         }
     }
 

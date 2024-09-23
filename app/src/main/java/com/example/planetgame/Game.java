@@ -20,7 +20,7 @@ public class Game {
     protected GreenMonster greenMonster;
     protected FluidMonster fluidMonster;
     private List<Cell> cellList;
-    public String text;
+    public static String text;
     public static final int ONE_ROW = 5;
     public static final int DESTROY_CELL = 3;
 
@@ -57,13 +57,15 @@ public class Game {
         score.increaseScore(cell.type, cell.num);
 
         player.cell.player.setVisibility(View.GONE);
-        player.cell.isEntity = false;
+        player.cell.isPlayer = false;
         player.cell = cell;
         cell.player.setVisibility(View.VISIBLE);
+        cell.isPlayer = true;
+        cell.setEmpty();
 
         for (int i = 0; i < Game.DESTROY_CELL; i++) {
             if (score.steps > 0) {
-                MainActivity.adapter.cellList.get(MainActivity.toDestroy[i]).background.setVisibility(View.INVISIBLE);
+                MainActivity.adapter.cellList.get(MainActivity.toDestroy[i]).setDestroy();
             }
             int n = rand.nextInt(25);
             MainActivity.adapter.cellList.get(n).background.setBackgroundColor(Color.RED);
@@ -76,24 +78,22 @@ public class Game {
 
         if (score.tree <= 0 && score.rock <= 0 && score.water <= 0) {
             text = "You win)))";
-            startDialog(manager);
+            startDialog(manager, "You win)))");
         }
 
         redMonster.activity();
         greenMonster.activity();
         fluidMonster.activity(this.context);
 
-        for (Cell c : player.availableCells(player.a)) {
-            if (c != null) {
-                return;
-            }
+        if (player.availableCells(Player.a).size() > 0) {
+            return;
         }
 
-        text = "You lose(((";
-        startDialog(manager);
+        startDialog(manager, "You lose(((");
     }
 
-    public void startDialog(FragmentManager manager) {
+    public static void startDialog(FragmentManager manager, String text1) {
+        text = text1;
         EndGameDialog dialog = new EndGameDialog();
         dialog.show(manager, "dialog");
     }

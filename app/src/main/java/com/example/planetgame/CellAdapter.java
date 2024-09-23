@@ -87,10 +87,7 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
 
         if (MainActivity.game.player.cell.equals(cell)) {
             cell.player.setVisibility(View.VISIBLE);
-            cell.num = 0;
-            cell.isEmpty = true;
-            holder.text.setText("0");
-            holder.text.setBackgroundColor(Color.CYAN);
+            cell.setEmpty();
         }
 
         if (cell.type == Type.WATER) {
@@ -102,14 +99,15 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         }
 
         holder.text.setText(cell.num + "");
+        if (cell.isEmpty){
+            holder.text.setBackgroundColor(Color.CYAN);
+        }
 
         holder.text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (MainActivity.game.player.availableCells(MainActivity.game.player.a).contains(cell)) {
                     MainActivity.game.newStep(cell);
-                    cell.isEntity = true;
-                    cell.setEmpty();
                 }
             }
         });

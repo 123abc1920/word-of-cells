@@ -29,29 +29,24 @@ public class FluidMonster extends Entity {
 
         while (true) {
             cell = MainActivity.adapter.cellList.get(new Random().nextInt(25));
-            if (!cell.isEntity) {
+            if (!cell.isPlayer && !cell.isMonster) {
                 this.cell = cell;
-                this.cell.isEntity = true;
+                this.cell.isMonster = true;
                 return;
             }
         }
     }
 
     public void activity(Context context) {
-        boolean canGo = false;
-        for (Cell c : this.availableCells(a)) {
-            if (c != null) {
-                canGo = true;
-                break;
-            }
-        }
-        if (canGo) {
+        if (this.availableCells(a).size() > 0) {
             cell.fluidMonster.setVisibility(View.GONE);
-            this.cell.isEntity = false;
+            this.cell.isMonster = false;
             this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
             this.cell.fluidMonster.setVisibility(View.VISIBLE);
-            this.cell.isEntity = true;
-            this.cell.setEmpty();
+            this.cell.isMonster = true;
+            if (this.cell.type.equals(this.type)){
+                this.cell.setEmpty();
+            }
         }
 
         if (MainActivity.game.score.steps % 5 == 0) {

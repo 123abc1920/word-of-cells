@@ -2,6 +2,7 @@ package com.example.planetgame;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +15,8 @@ public class Cell {
     public Type type;
     public boolean isEmpty = false;
     public boolean isDestroy = false;
-    public boolean isEntity = false;
+    public boolean isMonster = false;
+    public boolean isPlayer = false;
     public TextView background;
     public MaterialCardView player;
     public ImageView redMonster, greenMonster, fluidMonster;
@@ -40,6 +42,23 @@ public class Cell {
     public void setEmpty() {
         isEmpty = true;
         this.background.setBackgroundColor(Color.CYAN);
+        this.background.setText("0");
         this.num = 0;
+    }
+
+    public void setDestroy() {
+        this.isDestroy = true;
+        this.isPlayer = false;
+        this.isMonster = false;
+        this.background.setVisibility(View.INVISIBLE);
+
+        this.player.setVisibility(View.INVISIBLE);
+        this.redMonster.setVisibility(View.INVISIBLE);
+        this.greenMonster.setVisibility(View.INVISIBLE);
+        this.fluidMonster.setVisibility(View.INVISIBLE);
+    }
+
+    public void setMonster(){
+
     }
 }

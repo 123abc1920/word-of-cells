@@ -20,15 +20,19 @@ public class Entity {
     }
 
     private Cell adding(int a) {
-        int result = MainActivity.game.player.cell.id + a;
-        if (result < 25 && result >= 0 && !MainActivity.adapter.cellList.get(result).isDestroy && !MainActivity.adapter.cellList.get(result).isEntity) {
-            if (MainActivity.game.player.cell.col == 0 && MainActivity.adapter.cellList.get(result).col == 4) {
-                return null;
+        int result = this.cell.id + a;
+        if (result >= 0 && result < 25) {
+            if (!MainActivity.adapter.cellList.get(result).isMonster) {
+                if (!MainActivity.adapter.cellList.get(result).isDestroy) {
+                    if (this.cell.col == 0 && MainActivity.adapter.cellList.get(result).col == 4) {
+                        return null;
+                    }
+                    if (this.cell.col == 4 && MainActivity.adapter.cellList.get(result).col == 0) {
+                        return null;
+                    }
+                    return MainActivity.adapter.cellList.get((result));
+                }
             }
-            if (MainActivity.game.player.cell.col == 4 && MainActivity.adapter.cellList.get(result).col == 0) {
-                return null;
-            }
-            return MainActivity.adapter.cellList.get((result));
         }
         return null;
     }
