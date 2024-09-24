@@ -12,7 +12,7 @@ public class RedMonster extends Entity {
     public RedMonster() {
         Cell cell;
         while (true) {
-            cell = MainActivity.adapter.cellList.get(new Random().nextInt(25));
+            cell = MainActivity.adapter.cellList.get(new Random().nextInt(Game.CELLS));
             if (!cell.isPlayer && !cell.isMonster) {
                 this.cell = cell;
                 this.cell.isMonster = true;
@@ -23,13 +23,18 @@ public class RedMonster extends Entity {
 
     public void activity() {
         if (this.availableCells(a).size() > 0) {
-            cell.redMonster.setVisibility(View.GONE);
+            this.cell.redMonster.setVisibility(View.GONE);
             this.cell.isMonster = false;
-            this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
+            boolean playerIsNearby = false;
             for (Cell c : this.availableCells(a)) {
-                if (c.isPlayer) {
+                if (c.id == MainActivity.game.player.cell.id) {
                     this.cell = c;
+                    playerIsNearby = true;
+                    break;
                 }
+            }
+            if (!playerIsNearby) {
+                this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
             }
             this.cell.redMonster.setVisibility(View.VISIBLE);
             this.cell.isMonster = true;

@@ -28,7 +28,7 @@ public class FluidMonster extends Entity {
         }
 
         while (true) {
-            cell = MainActivity.adapter.cellList.get(new Random().nextInt(25));
+            cell = MainActivity.adapter.cellList.get(new Random().nextInt(Game.CELLS));
             if (!cell.isPlayer && !cell.isMonster) {
                 this.cell = cell;
                 this.cell.isMonster = true;

@@ -21,13 +21,13 @@ public class Entity {
 
     private Cell adding(int a) {
         int result = this.cell.id + a;
-        if (result >= 0 && result < 25) {
+        if (result >= 0 && result < Game.CELLS) {
             if (!MainActivity.adapter.cellList.get(result).isMonster) {
                 if (!MainActivity.adapter.cellList.get(result).isDestroy) {
-                    if (this.cell.col == 0 && MainActivity.adapter.cellList.get(result).col == 4) {
+                    if (this.cell.col == 0 && MainActivity.adapter.cellList.get(result).col == Game.ONE_ROW - 1) {
                         return null;
                     }
-                    if (this.cell.col == 4 && MainActivity.adapter.cellList.get(result).col == 0) {
+                    if (this.cell.col == Game.ONE_ROW - 1 && MainActivity.adapter.cellList.get(result).col == 0) {
                         return null;
                     }
                     return MainActivity.adapter.cellList.get((result));

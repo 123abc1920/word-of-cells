@@ -21,12 +21,13 @@ public class Game {
     protected FluidMonster fluidMonster;
     private List<Cell> cellList;
     public static String text;
-    public static final int ONE_ROW = 5;
+    public static final int ONE_ROW = 10;
     public static final int DESTROY_CELL = 3;
+    public static final int CELLS = 100;
 
     public Game(FragmentManager manager, Context context) {
         cellList = new ArrayList<>();
-        for (int i = 0, row = 0, col = 0; i < 25; i++) {
+        for (int i = 0, row = 0, col = 0; i < CELLS; i++) {
             cellList.add(new Cell(row, col, i, context));
             if ((i + 1) % ONE_ROW == 0) {
                 col = 0;
@@ -41,7 +42,7 @@ public class Game {
         MainActivity.recyclerView.setAdapter(MainActivity.adapter);
 
         this.manager = manager;
-        player = new Player(MainActivity.adapter.cellList.get(new Random().nextInt(25)));
+        player = new Player(MainActivity.adapter.cellList.get(new Random().nextInt(CELLS)));
         redMonster = new RedMonster();
         greenMonster = new GreenMonster();
         fluidMonster = new FluidMonster();
@@ -54,23 +55,15 @@ public class Game {
     }
 
     public void newStep(Cell cell) {
-        score.increaseScore(cell.type, cell.num);
+        if (cell != null) {
+            score.increaseScore(cell.type, cell.num);
 
-        player.cell.player.setVisibility(View.GONE);
-        player.cell.isPlayer = false;
-        player.cell = cell;
-        cell.player.setVisibility(View.VISIBLE);
-        cell.isPlayer = true;
-        cell.setEmpty();
-
-        for (int i = 0; i < Game.DESTROY_CELL; i++) {
-            if (score.steps > 0) {
-                MainActivity.adapter.cellList.get(MainActivity.toDestroy[i]).setDestroy();
-            }
-            int n = rand.nextInt(25);
-            MainActivity.adapter.cellList.get(n).background.setBackgroundColor(Color.RED);
-            MainActivity.adapter.cellList.get(n).isDestroy = true;
-            MainActivity.toDestroy[i] = n;
+            player.cell.player.setVisibility(View.GONE);
+            player.cell.isPlayer = false;
+            player.cell = cell;
+            cell.player.setVisibility(View.VISIBLE);
+            cell.isPlayer = true;
+            cell.setEmpty();
         }
 
         score.steps++;
@@ -84,6 +77,16 @@ public class Game {
         redMonster.activity();
         greenMonster.activity();
         fluidMonster.activity(this.context);
+
+        for (int i = 0; i < Game.DESTROY_CELL; i++) {
+            if (score.steps > 1) {
+                MainActivity.adapter.cellList.get(MainActivity.toDestroy[i]).setDestroy();
+            }
+            int n = rand.nextInt(CELLS);
+            MainActivity.adapter.cellList.get(n).background.setBackgroundColor(Color.RED);
+            MainActivity.adapter.cellList.get(n).isDestroy = true;
+            MainActivity.toDestroy[i] = n;
+        }
 
         if (player.availableCells(Player.a).size() > 0) {
             return;

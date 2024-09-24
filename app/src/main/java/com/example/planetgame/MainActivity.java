@@ -29,12 +29,20 @@ public class MainActivity extends AppCompatActivity {
         steps = findViewById(R.id.steps);
         recyclerView = findViewById(R.id.recycleView_main);
 
-        Button btn = findViewById(R.id.startBtn);
+        Button startBtn = findViewById(R.id.startBtn);
         Context context = this;
-        btn.setOnClickListener(new View.OnClickListener() {
+        startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 game = new Game(getSupportFragmentManager(), context);
+            }
+        });
+
+        Button skipBtn=findViewById(R.id.skipBtn);
+        skipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                game.newStep(null);
             }
         });
 
