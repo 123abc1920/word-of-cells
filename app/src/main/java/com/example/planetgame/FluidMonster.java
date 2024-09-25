@@ -46,7 +46,9 @@ public class FluidMonster extends Entity {
             cell.fluidMonster.setVisibility(View.GONE);
             this.cell.isMonster = false;
             this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
-            this.cell.fluidMonster.setVisibility(View.VISIBLE);
+            if (cell.fluidMonster != null) {
+                this.cell.fluidMonster.setVisibility(View.VISIBLE);
+            }
             this.cell.isMonster = true;
             if (this.cell.type.equals(this.type)) {
                 this.cell.setEmpty();

@@ -95,12 +95,6 @@ public class Game {
             MainActivity.adapter.cellList.get(n).isDestroy = true;
             MainActivity.toDestroy[i] = n;
         }
-
-        if (player.availableCells(Player.a).size() > 0) {
-            return;
-        }
-
-        startDialog(manager, "You lose(((");
     }
 
     public static void startDialog(FragmentManager manager, String text1) {

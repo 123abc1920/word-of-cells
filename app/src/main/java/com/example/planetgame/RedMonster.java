@@ -40,7 +40,9 @@ public class RedMonster extends Entity {
             if (!playerIsNearby) {
                 this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
             }
-            this.cell.redMonster.setVisibility(View.VISIBLE);
+            if (cell.redMonster != null) {
+                this.cell.redMonster.setVisibility(View.VISIBLE);
+            }
             this.cell.isMonster = true;
             if (this.cell.isPlayer) {
                 startDialog(MainActivity.game.manager, "You lose(((");

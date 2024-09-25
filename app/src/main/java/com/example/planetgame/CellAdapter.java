@@ -66,11 +66,9 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         cell.redMonster.setVisibility(View.GONE);
         cell.fluidMonster.setVisibility(View.GONE);
         cell.greenMonster.setVisibility(View.GONE);
-        cell.background.setVisibility(View.INVISIBLE);
+        cell.background.setBackgroundColor(Color.TRANSPARENT);
+        cell.background.setText("");
 
-        if (!cell.isDestroy) {
-            cell.background.setVisibility(View.VISIBLE);
-        }
         if (cell.isBridge) {
             cell.background.setBackgroundColor(Color.YELLOW);
         }
@@ -105,15 +103,17 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
             cell.setEmpty();
         }
 
-        if (cell.type == Type.WATER) {
-            holder.text.setBackgroundColor(Color.BLUE);
-        } else if (cell.type == Type.TREE) {
-            holder.text.setBackgroundColor(Color.GREEN);
-        } else if (cell.type == Type.ROCK) {
-            holder.text.setBackgroundColor(Color.GRAY);
+        if (!cell.isDestroy) {
+            if (cell.type == Type.WATER) {
+                holder.text.setBackgroundColor(Color.BLUE);
+            } else if (cell.type == Type.TREE) {
+                holder.text.setBackgroundColor(Color.GREEN);
+            } else if (cell.type == Type.ROCK) {
+                holder.text.setBackgroundColor(Color.GRAY);
+            }
+            holder.text.setText(cell.num + "");
         }
 
-        holder.text.setText(cell.num + "");
         if (cell.isEmpty) {
             holder.text.setBackgroundColor(Color.CYAN);
         }

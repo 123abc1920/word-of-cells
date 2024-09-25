@@ -38,7 +38,9 @@ public class GreenMonster extends Entity {
             if (!playerIsNearby) {
                 this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
             }
-            this.cell.greenMonster.setVisibility(View.VISIBLE);
+            if (cell.greenMonster != null) {
+                this.cell.greenMonster.setVisibility(View.VISIBLE);
+            }
             this.cell.isMonster = true;
             if (this.cell.isPlayer) {
                 MainActivity.game.score.tree += 10;
