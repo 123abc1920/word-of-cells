@@ -19,13 +19,10 @@ public class Score {
     public void increaseScore(Type type, int num) {
         if (type == Type.ROCK) {
             this.rock -= num;
-            MainActivity.rock.setText("rock " + this.rock);
         } else if (type == Type.TREE) {
             this.tree -= num;
-            MainActivity.tree.setText("tree " + this.tree);
         } else if (type == Type.WATER) {
             this.water -= num;
-            MainActivity.water.setText("water " + this.water);
         }
     }
 }

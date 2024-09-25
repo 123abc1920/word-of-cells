@@ -21,6 +21,7 @@ public class Game {
     protected FluidMonster fluidMonster;
     private List<Cell> cellList;
     public static String text;
+    public boolean createBridge = false;
     public static final int ONE_ROW = 10;
     public static final int DESTROY_CELL = 3;
     public static final int CELLS = 100;
@@ -41,7 +42,7 @@ public class Game {
         MainActivity.adapter = new CellAdapter(context, cellList);
         MainActivity.recyclerView.setAdapter(MainActivity.adapter);
 
-        int n=new Random().nextInt(CELLS);
+        int n = new Random().nextInt(CELLS);
         this.manager = manager;
         player = new Player(MainActivity.adapter.cellList.get(n));
         redMonster = new RedMonster();
@@ -64,8 +65,14 @@ public class Game {
             player.cell = cell;
             cell.player.setVisibility(View.VISIBLE);
             cell.isPlayer = true;
-            cell.setEmpty();
+            if (!cell.isBridge) {
+                cell.setEmpty();
+            }
         }
+
+        MainActivity.rock.setText("rock " + score.rock);
+        MainActivity.tree.setText("tree " + score.tree);
+        MainActivity.water.setText("water " + score.water);
 
         score.steps++;
         MainActivity.steps.setText("Steps: " + score.steps);

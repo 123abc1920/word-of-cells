@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     public static TextView tree, water, rock, steps;
     public static CellAdapter adapter;
     public static RecyclerView recyclerView;
+    public static Button setBtn;
     public static int[] toDestroy = {-1, -1, -1};
 
     @Override
@@ -39,11 +42,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button skipBtn=findViewById(R.id.skipBtn);
+        Button skipBtn = findViewById(R.id.skipBtn);
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 game.newStep(null);
+            }
+        });
+
+        setBtn = findViewById(R.id.setBridge);
+        setBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                game.createBridge = !game.createBridge;
+                if (game.createBridge) {
+                    setBtn.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                } else {
+                    setBtn.setBackgroundTintList(null);
+                    setBtn.setBackgroundColor(Color.rgb(103, 80, 164));
+                }
             }
         });
 

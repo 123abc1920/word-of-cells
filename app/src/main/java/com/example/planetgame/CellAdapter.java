@@ -71,6 +71,9 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         if (!cell.isDestroy) {
             cell.background.setVisibility(View.VISIBLE);
         }
+        if (cell.isBridge) {
+            cell.background.setBackgroundColor(Color.YELLOW);
+        }
 
         if (cell.equals(MainActivity.game.player.cell)) {
             cell.background.setBackgroundColor(Color.CYAN);
@@ -116,8 +119,25 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         holder.text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MainActivity.game.player.availableCells(MainActivity.game.player.a).contains(cell)) {
-                    MainActivity.game.newStep(cell);
+                if (MainActivity.game.createBridge) {
+                    if (cell.isDestroy) {
+                        if (cell.id == MainActivity.game.player.cell.id - 1 || cell.id == MainActivity.game.player.cell.id + 1 || cell.id == MainActivity.game.player.cell.id - Game.ONE_ROW || cell.id == MainActivity.game.player.cell.id + Game.ONE_ROW) {
+                            cell.isDestroy = false;
+                            cell.isBridge = true;
+                            cell.background.setBackgroundColor(Color.YELLOW);
+                            MainActivity.game.score.tree += 10;
+                            MainActivity.game.score.rock += 10;
+                            MainActivity.game.score.water += 10;
+                            MainActivity.game.createBridge = false;
+                            MainActivity.setBtn.setBackgroundTintList(null);
+                            MainActivity.setBtn.setBackgroundColor(Color.rgb(103, 80, 164));
+                            MainActivity.game.newStep(null);
+                        }
+                    }
+                } else {
+                    if (MainActivity.game.player.availableCells(MainActivity.game.player.a).contains(cell)) {
+                        MainActivity.game.newStep(cell);
+                    }
                 }
             }
         });

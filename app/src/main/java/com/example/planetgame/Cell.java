@@ -19,6 +19,7 @@ public class Cell {
     public boolean isDestroy = false;
     public boolean isMonster = false;
     public boolean isPlayer = false;
+    public boolean isBridge = false;
     public TextView background;
     public MaterialCardView player;
     public ImageView redMonster, greenMonster, fluidMonster;
@@ -52,7 +53,10 @@ public class Cell {
         this.isDestroy = true;
         this.isPlayer = false;
         this.isMonster = false;
-        this.background.setVisibility(View.INVISIBLE);
+        this.isBridge = false;
+        this.num = 0;
+        this.background.setBackgroundColor(Color.TRANSPARENT);
+        this.background.setText("");
 
         if (this.equals(MainActivity.game.player.cell)) {
             startDialog(MainActivity.game.manager, "You lose(((");
