@@ -78,23 +78,25 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         if (cell.equals(MainActivity.game.player.cell)) {
             cell.background.setBackgroundColor(Color.CYAN);
         }
-        if (cell.equals(MainActivity.game.greenMonster.cell)) {
-            cell.greenMonster.setVisibility(View.VISIBLE);
-        }
-        if (cell.equals(MainActivity.game.redMonster.cell)) {
-            cell.redMonster.setVisibility(View.VISIBLE);
-        }
-        if (cell.equals(MainActivity.game.fluidMonster.cell)) {
-            cell.fluidMonster.setVisibility(View.VISIBLE);
+        if (!cell.isDestroy) {
+            if (cell.equals(MainActivity.game.greenMonster.cell)) {
+                cell.greenMonster.setVisibility(View.VISIBLE);
+            }
+            if (cell.equals(MainActivity.game.redMonster.cell)) {
+                cell.redMonster.setVisibility(View.VISIBLE);
+            }
+            if (cell.equals(MainActivity.game.fluidMonster.cell)) {
+                cell.fluidMonster.setVisibility(View.VISIBLE);
 
-            if (MainActivity.game.fluidMonster.type == Type.TREE) {
-                cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green)));
-            }
-            if (MainActivity.game.fluidMonster.type == Type.ROCK) {
-                cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey)));
-            }
-            if (MainActivity.game.fluidMonster.type == Type.WATER) {
-                cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue)));
+                if (MainActivity.game.fluidMonster.type == Type.TREE) {
+                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green)));
+                }
+                if (MainActivity.game.fluidMonster.type == Type.ROCK) {
+                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey)));
+                }
+                if (MainActivity.game.fluidMonster.type == Type.WATER) {
+                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue)));
+                }
             }
         }
 
