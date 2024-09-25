@@ -5,8 +5,8 @@ import android.view.View;
 import java.util.Random;
 
 public class GreenMonster extends Entity {
-
     private static final int[] a = {Game.ONE_ROW - 1, -Game.ONE_ROW + 1, Game.ONE_ROW + 1, -Game.ONE_ROW - 1};
+    public boolean isDestroy = false;
 
     public GreenMonster() {
         Cell cell;
@@ -21,6 +21,9 @@ public class GreenMonster extends Entity {
     }
 
     public void activity() {
+        if (this.isDestroy) {
+            return;
+        }
         if (this.availableCells(a).size() > 0) {
             this.cell.greenMonster.setVisibility(View.GONE);
             this.cell.isMonster = false;

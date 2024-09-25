@@ -11,6 +11,7 @@ import java.util.Random;
 public class FluidMonster extends Entity {
     private static final int[] a = {Game.ONE_ROW, 1, -Game.ONE_ROW, -1};
     public Type type;
+    public boolean isDestroy = false;
 
     public FluidMonster() {
         Cell cell;
@@ -38,13 +39,16 @@ public class FluidMonster extends Entity {
     }
 
     public void activity(Context context) {
+        if (this.isDestroy) {
+            return;
+        }
         if (this.availableCells(a).size() > 0) {
             cell.fluidMonster.setVisibility(View.GONE);
             this.cell.isMonster = false;
             this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
             this.cell.fluidMonster.setVisibility(View.VISIBLE);
             this.cell.isMonster = true;
-            if (this.cell.type.equals(this.type)){
+            if (this.cell.type.equals(this.type)) {
                 this.cell.setEmpty();
             }
         }

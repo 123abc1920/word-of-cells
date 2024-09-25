@@ -41,8 +41,9 @@ public class Game {
         MainActivity.adapter = new CellAdapter(context, cellList);
         MainActivity.recyclerView.setAdapter(MainActivity.adapter);
 
+        int n=new Random().nextInt(CELLS);
         this.manager = manager;
-        player = new Player(MainActivity.adapter.cellList.get(new Random().nextInt(CELLS)));
+        player = new Player(MainActivity.adapter.cellList.get(n));
         redMonster = new RedMonster();
         greenMonster = new GreenMonster();
         fluidMonster = new FluidMonster();

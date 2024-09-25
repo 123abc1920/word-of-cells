@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 game = new Game(getSupportFragmentManager(), context);
+                recyclerView.smoothScrollToPosition(0);
             }
         });
 
@@ -47,5 +48,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         game = new Game(getSupportFragmentManager(), this);
+        recyclerView.smoothScrollToPosition(0);
     }
 }

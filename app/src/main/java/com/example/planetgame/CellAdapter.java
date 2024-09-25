@@ -62,6 +62,16 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         cell.greenMonster = holder.greenMonster;
         cell.fluidMonster = holder.fluidMonster;
 
+        cell.player.setVisibility(View.GONE);
+        cell.redMonster.setVisibility(View.GONE);
+        cell.fluidMonster.setVisibility(View.GONE);
+        cell.greenMonster.setVisibility(View.GONE);
+        cell.background.setVisibility(View.INVISIBLE);
+
+        if (!cell.isDestroy) {
+            cell.background.setVisibility(View.VISIBLE);
+        }
+
         if (cell.equals(MainActivity.game.player.cell)) {
             cell.background.setBackgroundColor(Color.CYAN);
         }
@@ -99,7 +109,7 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         }
 
         holder.text.setText(cell.num + "");
-        if (cell.isEmpty){
+        if (cell.isEmpty) {
             holder.text.setBackgroundColor(Color.CYAN);
         }
 

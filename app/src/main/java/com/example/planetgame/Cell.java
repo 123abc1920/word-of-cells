@@ -1,5 +1,7 @@
 package com.example.planetgame;
 
+import static com.example.planetgame.Game.startDialog;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -52,13 +54,22 @@ public class Cell {
         this.isMonster = false;
         this.background.setVisibility(View.INVISIBLE);
 
+        if (this.equals(MainActivity.game.player.cell)) {
+            startDialog(MainActivity.game.manager, "You lose(((");
+        }
+        if (this.equals(MainActivity.game.redMonster.cell)) {
+            MainActivity.game.redMonster.isDestroy = true;
+        }
+        if (this.equals(MainActivity.game.greenMonster.cell)) {
+            MainActivity.game.greenMonster.isDestroy = true;
+        }
+        if (this.equals(MainActivity.game.fluidMonster.cell)) {
+            MainActivity.game.fluidMonster.isDestroy = true;
+        }
+
         this.player.setVisibility(View.INVISIBLE);
         this.redMonster.setVisibility(View.INVISIBLE);
         this.greenMonster.setVisibility(View.INVISIBLE);
         this.fluidMonster.setVisibility(View.INVISIBLE);
-    }
-
-    public void setMonster(){
-
     }
 }

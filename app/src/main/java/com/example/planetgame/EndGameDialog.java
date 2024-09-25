@@ -22,6 +22,7 @@ public class EndGameDialog extends DialogFragment {
                         Context context = MainActivity.game.context;
                         FragmentManager manager = MainActivity.game.manager;
                         MainActivity.game = new Game(manager, context);
+                        MainActivity.recyclerView.smoothScrollToPosition(0);
                         dialog.cancel();
                     }
                 });
