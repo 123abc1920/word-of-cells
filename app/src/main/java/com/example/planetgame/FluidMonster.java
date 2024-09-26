@@ -43,7 +43,9 @@ public class FluidMonster extends Entity {
             return;
         }
         if (this.availableCells(a).size() > 0) {
-            cell.fluidMonster.setVisibility(View.GONE);
+            if (cell.fluidMonster != null) {
+                cell.fluidMonster.setVisibility(View.GONE);
+            }
             this.cell.isMonster = false;
             this.cell = this.availableCells(a).get(new Random().nextInt(this.availableCells(a).size()));
             if (cell.fluidMonster != null) {
@@ -59,15 +61,21 @@ public class FluidMonster extends Entity {
             Random random = new Random();
             int n = random.nextInt(3);
             if (n == 0) {
-                cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green)));
+                if (cell.fluidMonster != null) {
+                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green)));
+                }
                 this.type = Type.TREE;
             }
             if (n == 1) {
-                cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey)));
+                if (cell.fluidMonster != null) {
+                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey)));
+                }
                 this.type = Type.ROCK;
             }
             if (n == 2) {
-                cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue)));
+                if (cell.fluidMonster != null) {
+                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue)));
+                }
                 this.type = Type.WATER;
             }
         }

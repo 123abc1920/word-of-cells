@@ -27,7 +27,9 @@ public class RedMonster extends Entity {
             return;
         }
         if (this.availableCells(a).size() > 0) {
-            this.cell.redMonster.setVisibility(View.GONE);
+            if (this.cell.redMonster != null) {
+                this.cell.redMonster.setVisibility(View.GONE);
+            }
             this.cell.isMonster = false;
             boolean playerIsNearby = false;
             for (Cell c : this.availableCells(a)) {

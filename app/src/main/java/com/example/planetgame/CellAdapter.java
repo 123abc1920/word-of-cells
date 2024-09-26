@@ -62,60 +62,63 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         cell.greenMonster = holder.greenMonster;
         cell.fluidMonster = holder.fluidMonster;
 
-        cell.player.setVisibility(View.GONE);
-        cell.redMonster.setVisibility(View.GONE);
-        cell.fluidMonster.setVisibility(View.GONE);
-        cell.greenMonster.setVisibility(View.GONE);
-        cell.background.setBackgroundColor(Color.TRANSPARENT);
-        cell.background.setText("");
-
-        if (cell.isBridge) {
-            cell.background.setBackgroundColor(Color.YELLOW);
-        }
-
-        if (cell.equals(MainActivity.game.player.cell)) {
-            cell.background.setBackgroundColor(Color.CYAN);
-        }
         if (!cell.isDestroy) {
+            if (cell.isBridge) {
+                holder.text.setBackgroundColor(Color.YELLOW);
+                holder.text.setText("");
+            } else {
+                if (cell.type == Type.WATER) {
+                    holder.text.setBackgroundColor(Color.BLUE);
+                } else if (cell.type == Type.TREE) {
+                    holder.text.setBackgroundColor(Color.GREEN);
+                } else if (cell.type == Type.ROCK) {
+                    holder.text.setBackgroundColor(Color.GRAY);
+                }
+                holder.text.setText(cell.num + "");
+                if (cell.isEmpty) {
+                    holder.text.setBackgroundColor(Color.CYAN);
+                }
+            }
+
+            if (MainActivity.game.player.cell.equals(cell)) {
+                holder.player.setVisibility(View.VISIBLE);
+                cell.setEmpty();
+            } else {
+                holder.player.setVisibility(View.GONE);
+            }
+
             if (cell.equals(MainActivity.game.greenMonster.cell)) {
-                cell.greenMonster.setVisibility(View.VISIBLE);
+                holder.greenMonster.setVisibility(View.VISIBLE);
+            } else {
+                holder.greenMonster.setVisibility(View.GONE);
             }
             if (cell.equals(MainActivity.game.redMonster.cell)) {
-                cell.redMonster.setVisibility(View.VISIBLE);
+                holder.redMonster.setVisibility(View.VISIBLE);
+            } else {
+                holder.redMonster.setVisibility(View.GONE);
             }
             if (cell.equals(MainActivity.game.fluidMonster.cell)) {
-                cell.fluidMonster.setVisibility(View.VISIBLE);
+                holder.fluidMonster.setVisibility(View.VISIBLE);
 
                 if (MainActivity.game.fluidMonster.type == Type.TREE) {
-                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green)));
+                    holder.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green)));
                 }
                 if (MainActivity.game.fluidMonster.type == Type.ROCK) {
-                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey)));
+                    holder.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey)));
                 }
                 if (MainActivity.game.fluidMonster.type == Type.WATER) {
-                    cell.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue)));
+                    holder.fluidMonster.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue)));
                 }
+            } else {
+                holder.fluidMonster.setVisibility(View.GONE);
             }
-        }
-
-        if (MainActivity.game.player.cell.equals(cell)) {
-            cell.player.setVisibility(View.VISIBLE);
-            cell.setEmpty();
-        }
-
-        if (!cell.isDestroy) {
-            if (cell.type == Type.WATER) {
-                holder.text.setBackgroundColor(Color.BLUE);
-            } else if (cell.type == Type.TREE) {
-                holder.text.setBackgroundColor(Color.GREEN);
-            } else if (cell.type == Type.ROCK) {
-                holder.text.setBackgroundColor(Color.GRAY);
-            }
-            holder.text.setText(cell.num + "");
-        }
-
-        if (cell.isEmpty) {
-            holder.text.setBackgroundColor(Color.CYAN);
+        } else {
+            holder.player.setVisibility(View.GONE);
+            holder.redMonster.setVisibility(View.GONE);
+            cell.fluidMonster.setVisibility(View.GONE);
+            holder.greenMonster.setVisibility(View.GONE);
+            holder.text.setBackgroundColor(Color.TRANSPARENT);
+            holder.text.setText("");
         }
 
         holder.text.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +146,11 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
                 }
             }
         });
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override

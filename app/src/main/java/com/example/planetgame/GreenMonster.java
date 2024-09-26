@@ -25,7 +25,9 @@ public class GreenMonster extends Entity {
             return;
         }
         if (this.availableCells(a).size() > 0) {
-            this.cell.greenMonster.setVisibility(View.GONE);
+            if (this.cell.greenMonster != null) {
+                this.cell.greenMonster.setVisibility(View.GONE);
+            }
             this.cell.isMonster = false;
             boolean playerIsNearby = false;
             for (Cell c : this.availableCells(a)) {

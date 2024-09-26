@@ -44,8 +44,10 @@ public class Cell {
 
     public void setEmpty() {
         isEmpty = true;
-        this.background.setBackgroundColor(Color.CYAN);
-        this.background.setText("0");
+        if (this.background != null) {
+            this.background.setBackgroundColor(Color.CYAN);
+            this.background.setText("0");
+        }
         this.num = 0;
     }
 
@@ -55,8 +57,10 @@ public class Cell {
         this.isMonster = false;
         this.isBridge = false;
         this.num = 0;
-        this.background.setBackgroundColor(Color.TRANSPARENT);
-        this.background.setText("");
+        if (this.background != null) {
+            this.background.setBackgroundColor(Color.TRANSPARENT);
+            this.background.setText("");
+        }
 
         if (this.equals(MainActivity.game.player.cell)) {
             startDialog(MainActivity.game.manager, "You lose(((");
@@ -71,9 +75,11 @@ public class Cell {
             MainActivity.game.fluidMonster.isDestroy = true;
         }
 
-        this.player.setVisibility(View.INVISIBLE);
-        this.redMonster.setVisibility(View.INVISIBLE);
-        this.greenMonster.setVisibility(View.INVISIBLE);
-        this.fluidMonster.setVisibility(View.INVISIBLE);
+        if (this.background != null) {
+            this.player.setVisibility(View.INVISIBLE);
+            this.redMonster.setVisibility(View.INVISIBLE);
+            this.greenMonster.setVisibility(View.INVISIBLE);
+            this.fluidMonster.setVisibility(View.INVISIBLE);
+        }
     }
 }

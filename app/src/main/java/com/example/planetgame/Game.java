@@ -91,7 +91,9 @@ public class Game {
                 MainActivity.adapter.cellList.get(MainActivity.toDestroy[i]).setDestroy();
             }
             int n = rand.nextInt(CELLS);
-            MainActivity.adapter.cellList.get(n).background.setBackgroundColor(Color.RED);
+            if (MainActivity.adapter.cellList.get(n).background != null) {
+                MainActivity.adapter.cellList.get(n).background.setBackgroundColor(Color.RED);
+            }
             MainActivity.adapter.cellList.get(n).isDestroy = true;
             MainActivity.toDestroy[i] = n;
         }
